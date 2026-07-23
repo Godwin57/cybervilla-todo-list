@@ -163,7 +163,7 @@ function TaskItem({
   return (
     <li
       id={`task-${task.id}`}
-      className="task-list-item flex items-center justify-between p-4 hover:bg-white/50 dark:hover:bg-gray-800/50 transition-colors group"
+      className="task-list-item flex items-center justify-between p-5 sm:p-6 hover:bg-white/50 dark:hover:bg-gray-800/50 transition-colors group"
     >
       <div
         className="flex items-start gap-4 flex-grow cursor-pointer mt-1"
@@ -225,7 +225,7 @@ function TaskItem({
   );
 }
 
-function FilterTabs({
+function DesktopFilterTabs({
   filter,
   setFilter,
   pendingCount,
@@ -239,61 +239,67 @@ function FilterTabs({
   onClearCompleted: () => void;
 }) {
   return (
-    <>
-      {/* Desktop Filters Footer (Hidden on Mobile) */}
-      <div className="hidden md:flex items-center justify-between p-4 bg-white/40 dark:bg-gray-900/40 border-t border-outline-variant/30">
-        <span className="font-body-sm text-body-sm text-on-surface-variant dark:text-gray-300 font-medium">
-          {pendingCount} items left
-        </span>
-        <div className="flex gap-2">
-          {(["all", "active", "completed"] as Filter[]).map((f) => (
-            <button
-              key={f}
-              onClick={() => setFilter(f)}
-              className={`font-label-md text-label-md px-3 py-1 rounded-md font-bold transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 capitalize ${
-                filter === f
-                  ? "text-primary border border-primary bg-primary-fixed/80 dark:bg-primary-fixed-dim/20 hover:bg-primary-fixed shadow-sm"
-                  : "text-on-surface-variant dark:text-gray-300 hover:text-on-background dark:hover:text-gray-100 hover:bg-white/50 dark:hover:bg-gray-800/50"
-              }`}
-            >
-              {f}
-            </button>
-          ))}
-        </div>
-        <button
-          onClick={() => completedCount > 0 && onClearCompleted()}
-          className={`font-label-md text-label-md text-on-surface-variant dark:text-gray-300 hover:text-on-background dark:hover:text-gray-100 transition-all focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-sm ${completedCount === 0 ? "opacity-50 cursor-not-allowed" : "hover:underline"}`}
-        >
-          Clear Completed
-        </button>
-      </div>
-
-      {/* Bottom Navigation (Mobile Only) */}
-      <nav className="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-center items-center gap-stack-gap h-14 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] border-t border-white/20 dark:border-gray-800/50">
+    <div className="hidden md:flex items-center justify-between p-4 bg-white/40 dark:bg-gray-900/40 border-t border-outline-variant/30 mt-8">
+      <span className="font-body-sm text-body-sm text-on-surface-variant dark:text-gray-300 font-medium">
+        {pendingCount} items left
+      </span>
+      <div className="flex gap-2">
         {(["all", "active", "completed"] as Filter[]).map((f) => (
           <button
             key={f}
             onClick={() => setFilter(f)}
-            className={`flex flex-col items-center justify-center w-full h-full pt-1 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary transition-colors capitalize ${
+            className={`font-label-md text-label-md px-3 py-1 rounded-md font-bold transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 capitalize ${
               filter === f
-                ? "text-primary font-bold border-t-2 border-primary"
-                : "text-on-surface-variant dark:text-gray-300 hover:text-primary dark:hover:text-primary"
+                ? "text-primary border border-primary bg-primary-fixed/80 dark:bg-primary-fixed-dim/20 hover:bg-primary-fixed shadow-sm"
+                : "text-on-surface-variant dark:text-gray-300 hover:text-on-background dark:hover:text-gray-100 hover:bg-white/50 dark:hover:bg-gray-800/50"
             }`}
           >
-            <span
-              className={`material-symbols-outlined mb-1 ${filter === f ? "text-primary" : ""}`}
-            >
-              {f === "all"
-                ? "list"
-                : f === "active"
-                  ? "radio_button_unchecked"
-                  : "check_circle"}
-            </span>
-            <span className="font-label-sm text-label-sm">{f}</span>
+            {f}
           </button>
         ))}
-      </nav>
-    </>
+      </div>
+      <button
+        onClick={() => completedCount > 0 && onClearCompleted()}
+        className={`font-label-md text-label-md text-on-surface-variant dark:text-gray-300 hover:text-on-background dark:hover:text-gray-100 transition-all focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-sm ${completedCount === 0 ? "opacity-50 cursor-not-allowed" : "hover:underline"}`}
+      >
+        Clear Completed
+      </button>
+    </div>
+  );
+}
+
+function MobileFilterTabs({
+  filter,
+  setFilter,
+}: {
+  filter: Filter;
+  setFilter: (f: Filter) => void;
+}) {
+  return (
+    <nav className="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-center items-center gap-stack-gap h-14 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] border-t border-white/20 dark:border-gray-800/50">
+      {(["all", "active", "completed"] as Filter[]).map((f) => (
+        <button
+          key={f}
+          onClick={() => setFilter(f)}
+          className={`flex flex-col items-center justify-center w-full h-full pt-1 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary transition-colors capitalize ${
+            filter === f
+              ? "text-primary font-bold border-t-2 border-primary"
+              : "text-on-surface-variant dark:text-gray-300 hover:text-primary dark:hover:text-primary"
+          }`}
+        >
+          <span
+            className={`material-symbols-outlined mb-1 ${filter === f ? "text-primary" : ""}`}
+          >
+            {f === "all"
+              ? "list"
+              : f === "active"
+                ? "radio_button_unchecked"
+                : "check_circle"}
+          </span>
+          <span className="font-label-sm text-label-sm">{f}</span>
+        </button>
+      ))}
+    </nav>
   );
 }
 
@@ -696,7 +702,7 @@ export function TaskBoard({ initialTasks }: { initialTasks: Task[] }) {
         </div>
 
         {/* Task List Container */}
-        <div className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl rounded-xl shadow-lg border border-white/20 dark:border-gray-800/50 overflow-hidden flex flex-col transition-all duration-300">
+        <div className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl rounded-xl shadow-lg border border-white/20 dark:border-gray-800/50 overflow-hidden flex flex-col transition-all duration-300 h-auto">
           <ul
             className="flex flex-col divide-y divide-outline-variant/30"
             role="list"
@@ -723,7 +729,7 @@ export function TaskBoard({ initialTasks }: { initialTasks: Task[] }) {
             )}
           </ul>
 
-          <FilterTabs
+          <DesktopFilterTabs
             filter={filter}
             setFilter={setFilter}
             pendingCount={pendingCount}
@@ -732,6 +738,8 @@ export function TaskBoard({ initialTasks }: { initialTasks: Task[] }) {
           />
         </div>
       </main>
+
+      <MobileFilterTabs filter={filter} setFilter={setFilter} />
 
       <AddTaskModal
         isOpen={showAddModal}
