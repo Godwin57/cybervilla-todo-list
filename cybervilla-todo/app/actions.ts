@@ -7,11 +7,11 @@ export async function getTasks() {
   return prisma.task.findMany({ orderBy: { createdAt: "asc" } });
 }
 
-export async function createTask(title: string) {
+export async function createTask(title: string, description?: string, dueDate?: Date) {
   const trimmed = title.trim();
   if (!trimmed) return;
   await prisma.task.create({
-    data: { title: trimmed, completed: false },
+    data: { title: trimmed, description, dueDate, completed: false },
   });
   revalidatePath("/");
 }
@@ -26,12 +26,12 @@ export async function toggleTask(id: string) {
   revalidatePath("/");
 }
 
-export async function editTask(id: string, title: string) {
+export async function editTask(id: string, title: string, description?: string | null, dueDate?: Date | null) {
   const trimmed = title.trim();
   if (!trimmed) return;
   await prisma.task.update({
     where: { id },
-    data: { title: trimmed },
+    data: { title: trimmed, description, dueDate },
   });
   revalidatePath("/");
 }
