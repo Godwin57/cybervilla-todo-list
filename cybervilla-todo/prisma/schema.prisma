@@ -1,10 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "postgresql"
 }
 
 generator client {
@@ -12,8 +7,10 @@ generator client {
 }
 
 model Task {
-  id        String   @id @default(uuid())
-  title     String
-  completed Boolean  @default(false)
-  createdAt DateTime @default(now())
+  id          String    @id @default(uuid())
+  title       String
+  description String?
+  dueDate     DateTime?
+  completed   Boolean   @default(false)
+  createdAt   DateTime  @default(now())
 }
