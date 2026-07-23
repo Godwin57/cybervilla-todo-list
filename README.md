@@ -2,7 +2,7 @@
 
 A modern, responsive full-stack task management application built to handle dynamic state and secure database mutations. Developed as a technical assessment for CyberVilla Technologies.
 
-🔗 **[View Live Deployment](https://your-vercel-link-here.vercel.app)**
+🔗 **[View Live Deployment](https://cybervilla-todo-list.vercel.app/)**
 
 ## 🚀 Tech Stack
 
@@ -25,8 +25,8 @@ To run this application locally, you will need Node.js and a PostgreSQL database
 
 **1. Clone the repository**
 \`\`\`bash
-git clone https://github.com/your-username/your-repo-name.git
-cd your-repo-name
+git clone https://github.com/godwin57/cybervilla-todo-list.git
+cd cybervilla-todo-list
 \`\`\`
 
 **2. Install dependencies**
