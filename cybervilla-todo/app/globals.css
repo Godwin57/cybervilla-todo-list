@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+}
+
+/* next-themes writes `class="dark"` on <html> — tell Tailwind to use class strategy */
+@variant dark (&:is(.dark *));
